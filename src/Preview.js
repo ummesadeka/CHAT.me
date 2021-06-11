@@ -15,7 +15,7 @@ import SendIcon from '@material-ui/icons/Send';
 import {v4 as uuid} from 'uuid';
 import {db, storage} from './firebase';
 import firebase from 'firebase';
-import firestore from 'firebase';
+
 
 function Preview() {
     const cameraImage = useSelector(selectCameraImage)
@@ -35,7 +35,7 @@ function Preview() {
     const sendPost =() => {
         const id = uuid();
         const uploadTask = storage
-        .ref(`post/${id}`)
+        .ref(`posts/${id}`)
         .putString(cameraImage,'data_url');
 
         uploadTask.on(
@@ -52,7 +52,7 @@ function Preview() {
             .child(id)
             .getDownloadURL()
             .then((url) =>{
-              db.collection('post').add({
+              db.collection('posts').add({
                   imageUrl: url,
                   username: 'sadeka',
                   read:false,
